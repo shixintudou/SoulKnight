@@ -8,6 +8,7 @@ TagManager:
   - CloseWeaponRange
   - FarWeaponRange
   - MapTile
+  - Goblin
   layers:
   - Default
   - TransparentFX

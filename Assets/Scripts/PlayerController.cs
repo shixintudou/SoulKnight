@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
             case WeaponState.Hand:
                 num = HandRange.OverlapCollider(ContactF2D, Contact);
                 for (int i = 0; i < num; i++)
-                {
+                {                    
                     //Contact[i].GetComponent<Enemy>()?.Hurt(basedamage);
                 }
                 break;
@@ -162,6 +162,17 @@ public class PlayerController : MonoBehaviour
     public void Dead()
     {
 
+    }
+    public void GetDamage(int damage)
+    {
+        shield -= damage;
+        if(shield<0)
+        {
+            HP += shield;
+            shield = 0;
+        }
+        if (HP < 0)
+            HP = 0;
     }
     public void ChangeToIdle()
     {

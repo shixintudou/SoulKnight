@@ -8,10 +8,12 @@ public class EnemyPool : MonoBehaviour
     public Queue<GameObject> enemies;
     public int amountToPool;
     public GameObject[] enemiesTypeToPool;
+    public bool shuldexpand;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Instance = this;
+        shuldexpand = false;
         enemies = new Queue<GameObject>();
         for(int i=0;i<amountToPool;i++)
         {
@@ -37,6 +39,14 @@ public class EnemyPool : MonoBehaviour
                 enemies.Enqueue(enemies.Dequeue());
             }
         }
-        return null;
+        if (shuldexpand)
+        {
+            GameObject enemy = Instantiate(enemiesTypeToPool[Random.Range(0, enemiesTypeToPool.Length)]);
+            enemy.SetActive(false);
+            enemies.Enqueue(enemy);
+            return enemy;
+        }
+        else
+            return null;
     }
 }
