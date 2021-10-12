@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5025137457912995354, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5025137457912995354, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
       propertyPath: m_LocalPosition.x
@@ -174,15 +174,101 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6460322071442284250, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6863120173684427636, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
       propertyPath: m_Name
       value: MapTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551806793465348, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551806998375206, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551807831109848, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551808131918581, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551808194273269, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551808309449724, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551808463955479, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326551808499934542, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
 --- !u!4 &271752146 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5025137457912995354, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3554566219819750070, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 502931180447029673, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3842780104199304910, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7011379940845471140, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8326551807635531781, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8326551807152557169, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8326551806842678689, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8326551808519038738, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6460322071442284253, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+  m_PrefabInstance: {fileID: 271752145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271752156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6863120173684427636, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
   m_PrefabInstance: {fileID: 271752145}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &349460912
@@ -400,6 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 821441213}
   - component: {fileID: 821441212}
+  - component: {fileID: 821441214}
   m_Layer: 0
   m_Name: Grid
   m_TagString: MapTile
@@ -434,6 +521,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &821441214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821441211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d556d2e44208240a88cb51888ed7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToThisMap:
+  - itemAmount: 0
+    itemToMap: {fileID: 271752155}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752154}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752153}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752152}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752151}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752150}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752149}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752148}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752147}
+    shouldExpand: 0
+  - itemAmount: 0
+    itemToMap: {fileID: 271752156}
+    shouldExpand: 0
 --- !u!1 &926336674
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,11 +977,13 @@ MonoBehaviour:
   quitattacktime: 0.1
   hurttime: 0.1
   HP: 5
+  maxHP: 5
+  EP: 180
+  maxEP: 180
   shield: 5
+  maxshield: 5
   shieldcovertime: 5
   everysheildcovertime: 1
-  maxshield: 5
-  maxHP: 5
   skilltime: 5
   skillcd: 7
 --- !u!58 &1736204005

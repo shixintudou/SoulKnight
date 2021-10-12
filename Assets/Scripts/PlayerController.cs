@@ -36,11 +36,13 @@ public class PlayerController : MonoBehaviour
     public float quitattacktime;
     public float hurttime;
     public int HP;
+    public int maxHP;
+    public int EP;
+    public int maxEP;
     public int shield;
+    public int maxshield;
     public float shieldcovertime;
     public float everysheildcovertime;
-    public int maxshield;
-    public int maxHP;
     public float skilltime;
     public float skillcd;
     // Start is called before the first frame update
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         CloseWeaponRange = GameObject.FindGameObjectWithTag("CloseWeaponRange").GetComponent<Collider2D>();
         FarWeaponRange = GameObject.FindGameObjectWithTag("FarWeaponRange").GetComponent<Collider2D>();
         HP = maxHP;
+        EP = maxEP;
         shield = maxshield;
     }
 
