@@ -10,6 +10,10 @@ public class EnemyPool : MonoBehaviour
     public GameObject[] enemiesTypeToPool;
     public bool shuldexpand;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void OnEnable()
     {
         Instance = this;
@@ -48,5 +52,14 @@ public class EnemyPool : MonoBehaviour
         }
         else
             return null;
+    }
+    public bool IsAllEnemiesDead()
+    {
+        foreach(GameObject gameObject in enemies)
+        {
+            if (gameObject.activeSelf)
+                return false;
+        }
+        return true;
     }
 }

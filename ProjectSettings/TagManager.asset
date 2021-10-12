@@ -9,6 +9,16 @@ TagManager:
   - FarWeaponRange
   - MapTile
   - Goblin
+  - StartMap
+  - UpWall
+  - LeftWall
+  - RightWall
+  - DownWall
+  - UpFence
+  - LeftFence
+  - RightFence
+  - DownFence
+  - Ground
   layers:
   - Default
   - TransparentFX

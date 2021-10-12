@@ -8,7 +8,7 @@ public class CameraMove : MonoBehaviour
     public float movespeed;
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

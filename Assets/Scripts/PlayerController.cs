@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         state = State.Idle;
         weaponState = WeaponState.Far;
         skillState = SkillState.SkillCanUse;
