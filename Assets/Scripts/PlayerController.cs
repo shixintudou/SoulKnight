@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             ChangeToDead();
         }
-        if(shield<maxshield)
+        if(shield<maxshield&&state!=State.Hurt)
         {
             StartCoroutine(ShieldBeginCoverCoroutine());
         }
@@ -94,6 +94,11 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SkillOnCoroutine());
         if (skillState == SkillState.SkillNotPrepared)
             StartCoroutine(SkillCdCoroutine());
+        
+        //for(int i=0;i<transform.childCount;i++)
+        //{
+
+        //}
     }
     public void Idle()
     {
@@ -177,6 +182,7 @@ public class PlayerController : MonoBehaviour
         }
         if (HP < 0)
             HP = 0;
+        ChangeToHurt();
     }
     public void ChangeToIdle()
     {
@@ -198,6 +204,12 @@ public class PlayerController : MonoBehaviour
     {
         state = State.Dead;
     }
+    public Vector2 GetMousePosition()
+    {
+        Vector2 screenposition = Input.mousePosition;
+        return Camera.main.ScreenToWorldPoint(new Vector3(screenposition.x, screenposition.y, 20f));
+    }
+
     IEnumerator QuitAttackCoroutine()
     {
         yield return new WaitForSeconds(quitattacktime);
