@@ -857,6 +857,18 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
       value: -0.2417945
       objectReference: {fileID: 0}
+    - target: {fileID: 3477386663808467368, guid: 8fea89b83904df9459679a0153f78033, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477386663808467368, guid: 8fea89b83904df9459679a0153f78033, type: 3}
+      propertyPath: m_LinearDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477386663808467368, guid: 8fea89b83904df9459679a0153f78033, type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3477386663808467369, guid: 8fea89b83904df9459679a0153f78033, type: 3}
       propertyPath: m_Radius
       value: 0.16994184
@@ -866,9 +878,17 @@ PrefabInstance:
       value: 0.008313954
       objectReference: {fileID: 0}
     - target: {fileID: 3477386663808467370, guid: 8fea89b83904df9459679a0153f78033, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477386663808467370, guid: 8fea89b83904df9459679a0153f78033, type: 3}
       propertyPath: attackRange
       value: 
       objectReference: {fileID: 161862865}
+    - target: {fileID: 3477386663808467370, guid: 8fea89b83904df9459679a0153f78033, type: 3}
+      propertyPath: attacDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3477386663808467372, guid: 8fea89b83904df9459679a0153f78033, type: 3}
       propertyPath: m_RootOrder
       value: 0
