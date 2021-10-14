@@ -11,7 +11,7 @@ public class MapSetter : MonoBehaviour
     {
         public int itemAmount;
         public GameObject itemToMap;
-        public bool shouldExpand;
+        public bool shouldExpand = true;
     }
     public enum MapDirection
     {
@@ -33,7 +33,7 @@ public class MapSetter : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     void OnEnable()
     {

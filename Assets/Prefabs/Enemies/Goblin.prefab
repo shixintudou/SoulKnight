@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3477386663288344015}
   - component: {fileID: 3477386663288344014}
+  - component: {fileID: 2406431235021420441}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -56,11 +57,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.08677167, y: 0.18857105}
-      - {x: 0.063997924, y: 0.07744558}
+    - - {x: -0.051099896, y: 0.34798503}
+      - {x: 0.046763957, y: 0.07744558}
       - {x: 0.04355526, y: -0.1657093}
-      - {x: 0.11764604, y: -0.19076839}
-      - {x: 0.19404751, y: -0.015628874}
+      - {x: 0.0851174, y: -0.24538031}
+      - {x: 0.2425921, y: -0.24247023}
+      - {x: 0.35776997, y: 0.07054085}
+--- !u!114 &2406431235021420441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3477386663288343984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c916768ca42c8a47b77175c0d7a867e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3477386663808467373
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +197,7 @@ MonoBehaviour:
   attacDistance: 3.5
   speed: 2
   movePosition: {x: 0, y: 0, z: 0}
+  attackRange: {fileID: 0}
 --- !u!50 &3477386663808467368
 Rigidbody2D:
   serializedVersion: 4

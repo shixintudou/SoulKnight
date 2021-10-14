@@ -12,6 +12,7 @@ public class Goblin : EnemyBase
     {       
         state = State.Move;
         //attackto = false;
+        StartCoroutine(MoveCoroutine());
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class Goblin : EnemyBase
         }
         if (HP <= 0)
             ChangeToDead();
-        
+       
     }
     public override void ChangeToMove()
     {
@@ -52,13 +53,13 @@ public class Goblin : EnemyBase
 
 
 
-        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) >= attacDistance)
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) >= attackDistance)
             ChangeToMove();
     }
     public override void Move()
     {
         transform.position += movePosition * speed * Time.deltaTime;
-        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < attacDistance)
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < attackDistance)
             ChangeToAttack();
     }
     IEnumerator MoveCoroutine()

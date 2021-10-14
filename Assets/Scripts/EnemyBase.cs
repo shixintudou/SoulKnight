@@ -13,7 +13,7 @@ public class EnemyBase : MonoBehaviour
     public State state;
     public float attackCd;
     public float idleTime;
-    public float attacDistance;
+    public float attackDistance;
     public float speed;
     public Vector3 movePosition;
     

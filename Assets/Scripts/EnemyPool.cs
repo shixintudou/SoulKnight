@@ -12,12 +12,12 @@ public class EnemyPool : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     void OnEnable()
     {
         Instance = this;
-        shuldexpand = false;
+        shuldexpand = true;
         enemies = new Queue<GameObject>();
         for(int i=0;i<amountToPool;i++)
         {
