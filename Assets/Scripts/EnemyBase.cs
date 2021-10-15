@@ -16,6 +16,8 @@ public class EnemyBase : MonoBehaviour
     public float attackDistance;
     public float speed;
     public Vector3 movePosition;
+    public float avoidDistance;
+    public float avoidTime;
     
     // Start is called before the first frame update
     

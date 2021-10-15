@@ -50,7 +50,26 @@ public class Goblin : EnemyBase
     {
         Vector3 vector = transform.position - PlayerController.Instance.transform.position;
         transform.position -= vector * speed * Time.deltaTime;
+        RaycastHit2D raycastHit;
+        Vector2 castposition = transform.position - PlayerController.Instance.transform.position;
+        castposition.Normalize();
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y) + castposition;
+        raycastHit = Physics2D.Raycast(origin, castposition, avoidDistance);
 
+        if (raycastHit.collider?.CompareTag("PlayerBullet") == true)
+        {
+            switch (UnityEngine.Random.Range(0, 2))
+            {
+                case 0:
+                    castposition = Quaternion.Euler(90, 0, 0) * castposition;
+                    break;
+                case 1:
+                    castposition = Quaternion.Euler(-90, 0, 0) * castposition;
+                    break;
+            }
+            StopAllCoroutines();
+            StartCoroutine(AvoidCoroutine(castposition, avoidTime));
+        }
 
 
         if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) >= attackDistance)
@@ -71,6 +90,16 @@ public class Goblin : EnemyBase
             movePosition.Normalize();
             yield return new WaitForSeconds(idleTime);
         }
+    }
+    IEnumerator AvoidCoroutine(Vector2 avoidTarget, float time)
+    {
+        while (avoidTime > 0)
+        {
+            transform.Translate(avoidTarget * speed * Time.deltaTime);
+            avoidTime -= Time.deltaTime;
+            yield return null;
+        }
+        avoidTime = time;
     }
     IEnumerator AttackCoroutine()
     {

@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     public void Move()
     {
 
-        transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime);
+        transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed * Time.deltaTime);
         if(Input.GetAxisRaw("Horizontal")!=0)
         {
             Vector3Int vector3Int = new Vector3Int((int)Input.GetAxisRaw("Horizontal"), 1, 1);

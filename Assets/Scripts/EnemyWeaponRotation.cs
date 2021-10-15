@@ -13,6 +13,7 @@ public class EnemyWeaponRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(PlayerController.Instance.transform);
+        if (GetComponentInParent<EnemyBase>().state == EnemyBase.State.Attack)
+            transform.LookAt(PlayerController.Instance.transform);
     }
 }
