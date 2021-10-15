@@ -149,7 +149,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e29968fe99295ae438923bf84e1569af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -194,9 +194,11 @@ MonoBehaviour:
   state: 0
   attackCd: 3
   idleTime: 1
-  attacDistance: 3.5
+  attackDistance: 0
   speed: 2
   movePosition: {x: 0, y: 0, z: 0}
+  avoidDistance: 0
+  avoidTime: 0
   attackRange: {fileID: 0}
 --- !u!50 &3477386663808467368
 Rigidbody2D:

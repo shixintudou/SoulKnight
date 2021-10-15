@@ -22,10 +22,11 @@ public class BubblePool : MonoBehaviour
         
         for(int i=0;i<BubbleTypeToPool.Length;i++)
         {
-            Bubbles.Add(BubbleTypeToPool[i].name, new List<GameObject>());
+            Bubbles.Add(BubbleTypeToPool[i].name+"(Clone)", new List<GameObject>());
+            //print(BubbleTypeToPool[i].name);
             for(int j=0;j<amountToPool;j++)
             {
-                GameObject obj = BubbleTypeToPool[i];
+                GameObject obj = Instantiate(BubbleTypeToPool[i]);
                 Bubbles[obj.name].Add(obj);
                 obj.SetActive(false);
             }

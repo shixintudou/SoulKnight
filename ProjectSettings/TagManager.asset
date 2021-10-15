@@ -20,6 +20,7 @@ TagManager:
   - DownFence
   - Ground
   - PlayerBullet
+  - Wall
   layers:
   - Default
   - TransparentFX
