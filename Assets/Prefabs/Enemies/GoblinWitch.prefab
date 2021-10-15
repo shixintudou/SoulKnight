@@ -110,7 +110,7 @@ MonoBehaviour:
   avoidTime: 0.3
   safeDistance: 1.8
   BulletNumber: 2
-  bulletSpeed: 3.2
+  bulletSpeed: 1.4
 --- !u!58 &4825008485909716993
 CircleCollider2D:
   m_ObjectHideFlags: 0

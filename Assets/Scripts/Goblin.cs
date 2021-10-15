@@ -52,7 +52,7 @@ public class Goblin : EnemyBase
     public override void Attack()
     {
         Vector3 vector = transform.position - PlayerController.Instance.transform.position;
-        transform.position -= vector * speed * Time.deltaTime;
+        transform.position -= vector.normalized * speed * Time.deltaTime;
         RaycastHit2D raycastHit;
         Vector2 castposition = transform.position - PlayerController.Instance.transform.position;
         castposition.Normalize();
@@ -70,7 +70,7 @@ public class Goblin : EnemyBase
                     castposition = Quaternion.Euler(-90, 0, 0) * castposition;
                     break;
             }
-            StopAllCoroutines();
+            StopCoroutine(AvoidCoroutine(castposition, avoidTime));
             StartCoroutine(AvoidCoroutine(castposition, avoidTime));
         }
 

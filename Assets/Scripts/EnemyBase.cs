@@ -6,7 +6,7 @@ public class EnemyBase : MonoBehaviour
 {
     public enum State
     { 
-    Move,Attack,Dead
+    Move,Attack,Dead,AfterAttack
     }
     public int HP;
     public int attackNumber;
@@ -31,6 +31,10 @@ public class EnemyBase : MonoBehaviour
     {
 
     }
+    public virtual void AfterAttack()
+    {
+
+    }
     public virtual void Dead()
     {
         gameObject.SetActive(false);
@@ -50,5 +54,9 @@ public class EnemyBase : MonoBehaviour
     public virtual void ChangeToDead()
     {
         state = State.Dead;
+    }
+    public virtual void ChangeToAfterAttack()
+    {
+        state = State.AfterAttack;
     }
 }
