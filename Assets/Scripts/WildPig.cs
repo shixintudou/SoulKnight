@@ -29,15 +29,20 @@ public class WildPig : EnemyBase
         if (HP <= 0)
             ChangeToDead();
         if (movePosition.x > 0)
-            transform.localScale = new Vector3(1, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         else if (movePosition.x < 0)
-            transform.localScale = new Vector3(-1, 0, 0);
+            transform.localScale = new Vector3(-1, 1, 1 );
     }
     public override void Move()
     {
         transform.position += movePosition * speed * Time.deltaTime;
         if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < attackDistance)
             ChangeToAttack();
+    }
+    public override void Attack()
+    {
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) >= attackDistance)
+            ChangeToMove();
     }
     public override void ChangeToMove()
     {
@@ -54,5 +59,9 @@ public class WildPig : EnemyBase
             movePosition.Normalize();
             yield return new WaitForSeconds(idleTime);
         }
+    }
+    IEnumerator AttackCoroutine()
+    {
+
     }
 }

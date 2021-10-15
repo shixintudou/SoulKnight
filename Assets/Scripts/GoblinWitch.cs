@@ -54,11 +54,11 @@ public class GoblinWitch : EnemyBase
         attackposition.Normalize();
         if (distance > safeDistance)
         {
-            transform.Translate(attackposition * speed * Time.deltaTime);
+            transform.Translate(attackposition * speed * Time.deltaTime * 0.3f);
         }
         else
         {
-            transform.Translate(-attackposition * speed * Time.deltaTime);
+            transform.Translate(-attackposition * speed * Time.deltaTime * 0.3f);
         }
 
 
