@@ -5,6 +5,16 @@ using UnityEngine;
 public class WeaponBase : MonoBehaviour
 {
     // Start is called before the first frame update
+    public int damage;
+    private Collider2D attackrange;
+    public static float attackspeed;
+    public enum Type
+    {
+        
+        Close,
+        Far,
+    }
+    public Type type;
     void Start()
     {
         
@@ -15,4 +25,5 @@ public class WeaponBase : MonoBehaviour
     {
         
     }
+    public virtual float GetAttackSpeed() => attackspeed;
 }

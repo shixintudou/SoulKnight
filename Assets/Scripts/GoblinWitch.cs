@@ -91,6 +91,7 @@ public class GoblinWitch : EnemyBase
                     castposition = Quaternion.Euler(-90, 0, 0) * castposition;
                     break;
             }
+            castposition.Normalize();
             StopCoroutine(AvoidCoroutine(castposition, avoidTime));
             StartCoroutine(AvoidCoroutine(castposition, avoidTime));
         }

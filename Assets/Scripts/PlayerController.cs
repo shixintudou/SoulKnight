@@ -45,9 +45,13 @@ public class PlayerController : MonoBehaviour
     public float everysheildcovertime;
     public float skilltime;
     public float skillcd;
+    public List<GameObject> weapons;
+    public int maxWeaponAmount=2;
+    public int nowWeaponIndex;
     // Start is called before the first frame update
     void Start()
     {
+        //print((int)State.Attack);
         DontDestroyOnLoad(gameObject);
         state = State.Idle;
         weaponState = WeaponState.Far;
@@ -59,11 +63,15 @@ public class PlayerController : MonoBehaviour
         HP = maxHP;
         EP = maxEP;
         shield = maxshield;
+        weapons = new List<GameObject>(maxWeaponAmount);
+        weapons.Add(Resources.Load<GameObject>("M1911"));
+        nowWeaponIndex = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //print(weapons.Count);
         switch (state)
         {
             case State.Idle:
@@ -94,7 +102,21 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SkillOnCoroutine());
         if (skillState == SkillState.SkillNotPrepared)
             StartCoroutine(SkillCdCoroutine());
-        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            nowWeaponIndex++;
+            nowWeaponIndex %= weapons.Count;
+            weaponState = (WeaponState)(int)weapons[nowWeaponIndex].GetComponent<WeaponBase>().type;
+        }
+        if(Input.GetMouseButtonDown(0))
+        {
+            StopCoroutine("QuitAttackCoroutine");
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            StopCoroutine(Shootcoroutine());
+            ChangeToMove();
+        }
         //for(int i=0;i<transform.childCount;i++)
         //{
 
@@ -109,7 +131,6 @@ public class PlayerController : MonoBehaviour
     }
     public void Move()
     {
-
         transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed * Time.deltaTime);
         if(Input.GetAxisRaw("Horizontal")!=0)
         {
@@ -123,7 +144,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Attack()
     {
-        transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed * Time.deltaTime);
+        transform.Translate(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed * Time.deltaTime);
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             Vector3Int vector3Int = new Vector3Int((int)Input.GetAxisRaw("Horizontal"), 1, 1);
@@ -147,19 +168,17 @@ public class PlayerController : MonoBehaviour
                 num = CloseWeaponRange.OverlapCollider(ContactF2D, Contact);
                 for (int i = 0; i < num; i++)
                 {
-                    //Contact[i].GetComponent<Enemy>()?.Hurt(basedamage);
+                   
                 }
                 break;
             case WeaponState.Far:
-                num = FarWeaponRange.OverlapCollider(ContactF2D, Contact);
-                for (int i = 0; i < num; i++)
-                {
-                    //Contact[i].GetComponent<Enemy>()?.Hurt(basedamage);
-                }
+                
                 break;
         }
         if (!Input.GetMouseButton(0))
             StartCoroutine(QuitAttackCoroutine());
+        else
+            StopCoroutine(QuitAttackCoroutine());
         
     }
     public void Hurt()
@@ -170,7 +189,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Dead()
     {
-
+        
     }
     public void GetDamage(int damage)
     {
@@ -195,6 +214,10 @@ public class PlayerController : MonoBehaviour
     public void ChangeToAttack()
     {
         state = State.Attack;
+        GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+        bullet.transform.position = transform.position;
+        bullet.SetActive(true);
+        StartCoroutine(Shootcoroutine());
     }
     public void ChangeToHurt()
     {
@@ -213,6 +236,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator QuitAttackCoroutine()
     {
         yield return new WaitForSeconds(quitattacktime);
+        StopCoroutine(Shootcoroutine());
         ChangeToIdle();
     }
     IEnumerator QuitHurtCoroutine()
@@ -235,12 +259,22 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator SkillCdCoroutine()
     {
-        yield return new WaitForSeconds(skillcd);
+        yield return new WaitForSeconds(skillcd); 
         skillState = SkillState.SkillCanUse;
     }
     IEnumerator SkillOnCoroutine()
     {
         yield return new WaitForSeconds(skilltime);
         skillState = SkillState.SkillNotPrepared;
+    }
+    IEnumerator Shootcoroutine()
+    {
+        while(weaponState==WeaponState.Far&&state==State.Attack)
+        {
+            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+            bullet.transform.position = transform.position;
+            bullet.SetActive(true);
+            yield return new WaitForSeconds(weapons[nowWeaponIndex].GetComponent<WeaponBase>().GetAttackSpeed());
+        }
     }
 }

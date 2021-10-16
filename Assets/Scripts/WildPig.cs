@@ -71,6 +71,7 @@ public class WildPig : EnemyBase
                     castposition = Quaternion.Euler(-90, 0, 0) * castposition;
                     break;
             }
+            castposition.Normalize();
             StopCoroutine(AvoidCoroutine(castposition, avoidTime));
             StartCoroutine(AvoidCoroutine(castposition, avoidTime));
         }
@@ -137,7 +138,7 @@ public class WildPig : EnemyBase
                     PlayerController.Instance.GetDamage(attackNumber);
                     ChangeToAfterAttack();
                 }
-                print("attack");
+                //print("attack");
             }
             yield return null;
         }
