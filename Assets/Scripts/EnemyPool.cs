@@ -23,6 +23,7 @@ public class EnemyPool : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemiesTypeToPool[Random.Range(0, enemiesTypeToPool.Length)]);
             enemy.SetActive(false);
+            DontDestroyOnLoad(enemy);
             enemies.Enqueue(enemy);
         }
     }

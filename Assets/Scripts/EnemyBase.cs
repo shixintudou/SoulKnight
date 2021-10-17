@@ -37,6 +37,21 @@ public class EnemyBase : MonoBehaviour
     }
     public virtual void Dead()
     {
+        int n = Random.Range(0, 3);
+        switch (n)
+        {
+            case 0:
+                break;
+            case 1:
+                GameObject coin = Instantiate(Resources.Load<GameObject>("Coin"));
+                coin.transform.position = transform.position;
+                break;
+            case 2:
+                GameObject blue = Instantiate(Resources.Load<GameObject>("BlueCrystal"));
+                blue.transform.position = transform.position;
+                break;
+        }
+
         gameObject.SetActive(false);
     }
     public void Hurt(int damage)

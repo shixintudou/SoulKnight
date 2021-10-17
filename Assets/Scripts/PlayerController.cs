@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public int maxEP;
     public int shield;
     public int maxshield;
+    public int coin;
     public float shieldcovertime;
     public float everysheildcovertime;
     public float skilltime;
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
         nowWeaponIndex = 0;
         animatorController = GetComponent<Animator>();
         animatorController.SetBool("isDead", false);
+        coin = 0;
         
     }
 

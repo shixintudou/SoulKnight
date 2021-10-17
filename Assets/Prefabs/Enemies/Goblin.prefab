@@ -57,8 +57,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.051099896, y: 0.34798503}
-      - {x: 0.046763957, y: 0.07744558}
+    - - {x: 0.36366916, y: 0.30648848}
+      - {x: -0.051099896, y: 0.34798503}
+      - {x: -0.010042548, y: 0.05937077}
       - {x: 0.04355526, y: -0.1657093}
       - {x: 0.0851174, y: -0.24538031}
       - {x: 0.2425921, y: -0.24247023}
@@ -192,7 +193,7 @@ MonoBehaviour:
   HP: 10
   attackNumber: 2
   state: 0
-  attackCd: 3
+  attackCd: 1
   idleTime: 1
   attackDistance: 2.5
   speed: 1.5

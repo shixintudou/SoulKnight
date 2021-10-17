@@ -28,6 +28,7 @@ public class BubblePool : MonoBehaviour
             {
                 GameObject obj = Instantiate(BubbleTypeToPool[i]);
                 Bubbles[obj.name].Add(obj);
+                DontDestroyOnLoad(obj);
                 obj.SetActive(false);
             }
         }

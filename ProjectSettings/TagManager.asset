@@ -21,6 +21,8 @@ TagManager:
   - Ground
   - PlayerBullet
   - Wall
+  - Image
+  - Pool
   layers:
   - Default
   - TransparentFX
