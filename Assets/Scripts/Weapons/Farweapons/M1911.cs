@@ -5,19 +5,47 @@ using UnityEngine;
 public class M1911 : WeaponBase
 {
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         type = Type.Far;       
         attackspeed = 0.8f;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(PlayerController.Instance.GetMousePosition());
+        
+        Vector2 vector = (PlayerController.Instance.GetMousePosition() - new Vector2(transform.position.x, transform.position.y)).normalized;
+        transform.right = new Vector3(vector.x, vector.y, 0) * PlayerController.Instance.transform.localScale.x;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+            bullet.transform.position = transform.position;
+            bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+            bullet.SetActive(true);
+            StartCoroutine(ShootCoroutine());
+        }
+        if (Input.GetMouseButtonUp(0))
+            StopAllCoroutines();
+
+
     }
+
     public override float GetAttackSpeed()
     {
         return attackspeed;
+    }
+    IEnumerator ShootCoroutine()
+    {
+        while(Input.GetMouseButton(0))
+        {
+            yield return new WaitForSeconds(attackspeed);
+            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+            bullet.transform.position = transform.position;
+            bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+            bullet.SetActive(true);
+        }      
     }
 }

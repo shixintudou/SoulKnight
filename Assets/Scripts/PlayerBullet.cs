@@ -6,7 +6,7 @@ public class PlayerBullet : MonoBehaviour
 {
     // Start is called before the first frame update
     public int damage;
-    private Vector2 MovePosition = new Vector2();
+    public Vector2 MovePosition;
     public float speed = 3f;
     private void Start()
     {

@@ -161,7 +161,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 992757954}
   m_Father: {fileID: 1736204002}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -746,7 +747,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2a7aecc350e90cd41b1289c3ee3ca8b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ddfb3bb5c13d00547b61efb29895bc1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -771,7 +772,6 @@ Transform:
   - {fileID: 1801366030}
   - {fileID: 1453553132}
   - {fileID: 349460913}
-  - {fileID: 992757954}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -828,6 +828,7 @@ MonoBehaviour:
   weapons: []
   maxWeaponAmount: 2
   nowWeaponIndex: 0
+  animatorController: {fileID: 0}
 --- !u!58 &1736204005
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1299,7 +1300,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1736204002}
+    m_TransformParent: {fileID: 349460913}
     m_Modifications:
     - target: {fileID: 4226266715782926437, guid: 0f1eb08e67f18814a8fae45c6c8ce2a2, type: 3}
       propertyPath: m_Name
@@ -1307,7 +1308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4226266715782926438, guid: 0f1eb08e67f18814a8fae45c6c8ce2a2, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4226266715782926438, guid: 0f1eb08e67f18814a8fae45c6c8ce2a2, type: 3}
       propertyPath: m_LocalPosition.x

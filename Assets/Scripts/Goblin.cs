@@ -120,7 +120,7 @@ public class Goblin : EnemyBase
                 {
                     PlayerController.Instance.GetDamage(attackNumber);
                 }
-                print("attack");
+                //print("attack");
             }
             yield return new WaitForSeconds(attackCd);
         }

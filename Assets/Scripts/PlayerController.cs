@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> weapons;
     public int maxWeaponAmount=2;
     public int nowWeaponIndex;
+    public Animator animatorController;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -66,22 +68,31 @@ public class PlayerController : MonoBehaviour
         weapons = new List<GameObject>(maxWeaponAmount);
         weapons.Add(Resources.Load<GameObject>("M1911"));
         nowWeaponIndex = 0;
+        animatorController = GetComponent<Animator>();
+        animatorController.SetBool("isDead", false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(weapons.Count);
+        //print(GetMousePosition());
         switch (state)
         {
             case State.Idle:
                 Idle();
                 break;
             case State.Move:
+
                 Move();
                 break;
             case State.Attack:
                 Attack();
+                if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+                    animatorController.SetBool("isRun", false);
+                else
+                    animatorController.SetBool("isRun", true);
+                
                 break;
             case State.Hurt:
                 Hurt();
@@ -104,19 +115,21 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SkillCdCoroutine());
         if (Input.GetKeyDown(KeyCode.R))
         {
+            weapons[nowWeaponIndex].SetActive(false);
             nowWeaponIndex++;
             nowWeaponIndex %= weapons.Count;
             weaponState = (WeaponState)(int)weapons[nowWeaponIndex].GetComponent<WeaponBase>().type;
+            weapons[nowWeaponIndex].SetActive(true);
         }
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
             StopCoroutine("QuitAttackCoroutine");
         }
-        if(Input.GetMouseButtonUp(0))
-        {
-            StopCoroutine(Shootcoroutine());
-            ChangeToMove();
-        }
+        //if(Input.GetMouseButtonUp(0))
+        //{
+        //    StopCoroutine(Shootcoroutine());
+        //    ChangeToMove();
+        //}
         //for(int i=0;i<transform.childCount;i++)
         //{
 
@@ -172,14 +185,30 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case WeaponState.Far:
-                
+                //if(Input.GetMouseButtonDown(0))
+                //{
+                //    GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+                //    bullet.transform.position = transform.position;
+                //    bullet.GetComponent<PlayerBullet>().MovePosition = (GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+                //    bullet.SetActive(true);
+                //    StopCoroutine(Shootcoroutine());
+                //}
+                    
                 break;
         }
-        if (!Input.GetMouseButton(0))
-            StartCoroutine(QuitAttackCoroutine());
-        else
-            StopCoroutine(QuitAttackCoroutine());
         
+        if (!Input.GetMouseButton(0))
+        {
+            StartCoroutine(QuitAttackCoroutine());
+            
+        }
+        else
+        {
+            StopCoroutine("QuitAttacCoroutine");
+        }
+        //if (Input.GetMouseButtonUp(0))
+        //    StartCoroutine(QuitAttackCoroutine());
+
     }
     public void Hurt()
     {
@@ -206,18 +235,21 @@ public class PlayerController : MonoBehaviour
     public void ChangeToIdle()
     {
         state = State.Idle;
+        animatorController.SetBool("isRun", false);
     }
     public void ChangeToMove()
     {
         state = State.Move;
+        animatorController.SetBool("isRun", true);
     }
     public void ChangeToAttack()
     {
         state = State.Attack;
-        GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
-        bullet.transform.position = transform.position;
-        bullet.SetActive(true);
-        StartCoroutine(Shootcoroutine());
+        //GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+        //bullet.transform.position = transform.position;
+        //bullet.GetComponent<PlayerBullet>().MovePosition = (GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+        //bullet.SetActive(true);
+        //StartCoroutine(Shootcoroutine());       
     }
     public void ChangeToHurt()
     {
@@ -226,17 +258,18 @@ public class PlayerController : MonoBehaviour
     public void ChangeToDead()
     {
         state = State.Dead;
+        animatorController.SetBool("isDead", true);
     }
     public Vector2 GetMousePosition()
     {
         Vector2 screenposition = Input.mousePosition;
-        return Camera.main.ScreenToWorldPoint(new Vector3(screenposition.x, screenposition.y, 20f));
+        Vector3 vector= Camera.main.ScreenToWorldPoint(new Vector3(screenposition.x, screenposition.y, 20f));
+        return new Vector2(vector.x, vector.y);
     }
 
     IEnumerator QuitAttackCoroutine()
     {
-        yield return new WaitForSeconds(quitattacktime);
-        StopCoroutine(Shootcoroutine());
+        yield return new WaitForSeconds(quitattacktime);        
         ChangeToIdle();
     }
     IEnumerator QuitHurtCoroutine()
@@ -267,14 +300,22 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(skilltime);
         skillState = SkillState.SkillNotPrepared;
     }
-    IEnumerator Shootcoroutine()
-    {
-        while(weaponState==WeaponState.Far&&state==State.Attack)
-        {
-            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
-            bullet.transform.position = transform.position;
-            bullet.SetActive(true);
-            yield return new WaitForSeconds(weapons[nowWeaponIndex].GetComponent<WeaponBase>().GetAttackSpeed());
-        }
-    }
+    //IEnumerator Shootcoroutine()
+    //{
+    //   while(true)
+    //    {
+    //        yield return new WaitForSeconds(weapons[nowWeaponIndex].GetComponent<WeaponBase>().GetAttackSpeed());
+    //        if (Input.GetMouseButton(0))
+    //        {
+    //            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+    //            bullet.transform.position = transform.position;
+    //            bullet.GetComponent<PlayerBullet>().MovePosition = (GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+    //            bullet.SetActive(true);
+    //        }
+    //        else
+    //            StopCoroutine("Shootcoroutine");
+    //    }
+            
+                   
+    //}
 }

@@ -7,7 +7,8 @@ public class WeaponBase : MonoBehaviour
     // Start is called before the first frame update
     public int damage;
     private Collider2D attackrange;
-    public static float attackspeed;
+    public float attackspeed;
+    public int EPcost;
     public enum Type
     {
         
