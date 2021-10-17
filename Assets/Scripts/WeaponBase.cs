@@ -9,6 +9,7 @@ public class WeaponBase : MonoBehaviour
     private Collider2D attackrange;
     public float attackspeed;
     public int EPcost;
+    public static float HandRange = 0.2f;
     public enum Type
     {
         
@@ -27,4 +28,21 @@ public class WeaponBase : MonoBehaviour
         
     }
     public virtual float GetAttackSpeed() => attackspeed;
+#nullable enable
+    public EnemyBase? HandAttack()
+    {
+        int num;
+        Collider2D[] Contact = new Collider2D[10];
+        ContactFilter2D ContactF2D = new ContactFilter2D();
+        ContactF2D.NoFilter();
+        num = PlayerController.Instance.HandRange.OverlapCollider(ContactF2D, Contact);
+        for(int i=0;i<num;i++)
+        {
+            EnemyBase? enemyBase = Contact[i].GetComponent<EnemyBase>();           
+            if (enemyBase != null)
+                return enemyBase;
+        }
+        return null;
+          
+    }
 }

@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SkillOnCoroutine());
         if (skillState == SkillState.SkillNotPrepared)
             StartCoroutine(SkillCdCoroutine());
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R)&&weapons.Count>1)
         {
             weapons[nowWeaponIndex].SetActive(false);
             nowWeaponIndex++;
@@ -167,14 +167,15 @@ public class PlayerController : MonoBehaviour
         Collider2D[] Contact = new Collider2D[10];
         ContactFilter2D ContactF2D = new ContactFilter2D();
         ContactF2D.NoFilter();
-
+#nullable enable
         switch (weaponState)
         {
             case WeaponState.Hand:
                 num = HandRange.OverlapCollider(ContactF2D, Contact);
                 for (int i = 0; i < num; i++)
-                {                    
-                    //Contact[i].GetComponent<Enemy>()?.Hurt(basedamage);
+                {
+                    EnemyBase? enemyBase = Contact[i].GetComponent<EnemyBase>();
+                    
                 }
                 break;
             case WeaponState.Close:
@@ -184,6 +185,7 @@ public class PlayerController : MonoBehaviour
                    
                 }
                 break;
+#nullable disable
             case WeaponState.Far:
                 //if(Input.GetMouseButtonDown(0))
                 //{

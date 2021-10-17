@@ -18,7 +18,7 @@ public class WeaponRotation : MonoBehaviour
         //Vector2 rotpos = PlayerController.Instance.GetMousePosition() - pos;
         //rotpos.Normalize();
         Vector2 vector = (PlayerController.Instance.GetMousePosition() - new Vector2(transform.position.x, transform.position.y)).normalized;
-        transform.right = new Vector3(vector.x, vector.y, 0);
+        transform.right = new Vector3(vector.x, vector.y, 0) * PlayerController.Instance.transform.localScale.x;
     }
    
 }
