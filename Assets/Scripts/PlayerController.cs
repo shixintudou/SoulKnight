@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -78,55 +79,59 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(GetMousePosition());
-        switch (state)
+        if(SceneManager.GetActiveScene().buildIndex!=6)
         {
-            case State.Idle:
-                Idle();
-                break;
-            case State.Move:
+            switch (state)
+            {
+                case State.Idle:
+                    Idle();
+                    break;
+                case State.Move:
 
-                Move();
-                break;
-            case State.Attack:
-                Attack();
-                if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
-                    animatorController.SetBool("isRun", false);
-                else
-                    animatorController.SetBool("isRun", true);
-                
-                break;
-            case State.Hurt:
-                Hurt();
-                break;
-            case State.Dead:
-                Dead();
-                break;
+                    Move();
+                    break;
+                case State.Attack:
+                    Attack();
+                    if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+                        animatorController.SetBool("isRun", false);
+                    else
+                        animatorController.SetBool("isRun", true);
+
+                    break;
+                case State.Hurt:
+                    Hurt();
+                    break;
+                case State.Dead:
+                    Dead();
+                    break;
+            }
+            if (HP <= 0)
+            {
+                ChangeToDead();
+            }
+            if (shield < maxshield && state != State.Hurt)
+            {
+                StartCoroutine(ShieldBeginCoverCoroutine());
+            }
+            if (skillState == SkillState.SkillOn)
+                StartCoroutine(SkillOnCoroutine());
+            if (skillState == SkillState.SkillNotPrepared)
+                StartCoroutine(SkillCdCoroutine());
+            if (Input.GetKeyDown(KeyCode.R) && weapons.Count > 1)
+            {
+                weapons[nowWeaponIndex].SetActive(false);
+                nowWeaponIndex++;
+                nowWeaponIndex %= weapons.Count;
+                weaponState = (WeaponState)(int)weapons[nowWeaponIndex].GetComponent<WeaponBase>().type;
+                weapons[nowWeaponIndex].SetActive(true);
+            }
+            if (Input.GetMouseButton(0))
+            {
+                StopCoroutine("QuitAttackCoroutine");
+            }
         }
-        if (HP <= 0)
-        {
-            ChangeToDead();
-        }
-        if(shield<maxshield&&state!=State.Hurt)
-        {
-            StartCoroutine(ShieldBeginCoverCoroutine());
-        }
-        if (skillState == SkillState.SkillOn)
-            StartCoroutine(SkillOnCoroutine());
-        if (skillState == SkillState.SkillNotPrepared)
-            StartCoroutine(SkillCdCoroutine());
-        if (Input.GetKeyDown(KeyCode.R)&&weapons.Count>1)
-        {
-            weapons[nowWeaponIndex].SetActive(false);
-            nowWeaponIndex++;
-            nowWeaponIndex %= weapons.Count;
-            weaponState = (WeaponState)(int)weapons[nowWeaponIndex].GetComponent<WeaponBase>().type;
-            weapons[nowWeaponIndex].SetActive(true);
-        }
-        if(Input.GetMouseButton(0))
-        {
-            StopCoroutine("QuitAttackCoroutine");
-        }
+        //print(GetMousePosition());
+        
         //if(Input.GetMouseButtonUp(0))
         //{
         //    StopCoroutine(Shootcoroutine());

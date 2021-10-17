@@ -12,7 +12,7 @@ public class BubblePool : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
     void OnEnable()
     {
