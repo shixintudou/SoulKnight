@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour
     Move,Attack,Dead,AfterAttack
     }
     public int HP;
+    public int maxHP;
     public int attackNumber;
     public State state;
     public float attackCd;
@@ -51,7 +52,7 @@ public class EnemyBase : MonoBehaviour
                 blue.transform.position = transform.position;
                 break;
         }
-
+        ChangeToMove();
         gameObject.SetActive(false);
     }
     public void Hurt(int damage)

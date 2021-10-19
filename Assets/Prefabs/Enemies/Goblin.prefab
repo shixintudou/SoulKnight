@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 10
+  maxHP: 10
   attackNumber: 2
   state: 0
   attackCd: 1

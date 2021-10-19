@@ -7,9 +7,15 @@ public class WildPig : EnemyBase
     // Start is called before the first frame update
     public float attackspeed;
     public Collider2D AttackRange;
+    private void OnEnable()
+    {
+        state = State.Move;
+        HP = maxHP;
+    }
     void Start()
     {
         state = State.Move;
+        HP = maxHP;
         //attackto = false;
         StartCoroutine(MoveCoroutine());
     }
@@ -80,6 +86,10 @@ public class WildPig : EnemyBase
     public override void AfterAttack()
     {
         transform.position += movePosition * speed * Time.deltaTime;
+    }
+    public override void Dead()
+    {
+        base.Dead();
     }
     public override void ChangeToAfterAttack()
     {

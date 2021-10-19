@@ -38,7 +38,11 @@ public class EnemyPool : MonoBehaviour
         for(int i=0;i<enemies.Count;i++)
         {
             if (!enemies.Peek().activeInHierarchy)
+            {
+                enemies.Peek().GetComponent<EnemyBase>().state = EnemyBase.State.Move;
                 return enemies.Peek();
+            }
+                
             else
             {
                 enemies.Enqueue(enemies.Dequeue());

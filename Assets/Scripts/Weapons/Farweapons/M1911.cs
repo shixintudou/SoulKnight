@@ -11,6 +11,7 @@ public class M1911 : WeaponBase
         type = Type.Far;
         attackspeed = 0.8f;
         animator = GameObject.FindGameObjectWithTag("HandRange").GetComponent<Animator>();
+        animator.speed = 4;
     }
 
     // Update is called once per frame
@@ -45,8 +46,7 @@ public class M1911 : WeaponBase
     {
         if (Input.GetMouseButtonDown(0))
         {
-
-            StartCoroutine(HandAttackCoroutine());
+            animator.Play("HandAttack", 0, 0f);
             int num;
             Collider2D[] Contact = new Collider2D[10];
             ContactFilter2D ContactF2D = new ContactFilter2D();
@@ -54,7 +54,7 @@ public class M1911 : WeaponBase
             num = PlayerController.Instance.HandRange.OverlapCollider(ContactF2D, Contact);
             for (int i = 0; i < num; i++)
             {
-                Contact[i].GetComponent<EnemyBase>().Hurt(1);
+                Contact[i].GetComponent<EnemyBase>()?.Hurt(1);
             }
 
         }
@@ -75,10 +75,11 @@ public class M1911 : WeaponBase
             bullet.SetActive(true);
         }
     }
-    IEnumerator HandAttackCoroutine()
-    {
-        animator.SetBool("isAttack", true);
-        yield return new WaitForSeconds(0.3f);
-        animator.SetBool("isAttack", false);
-    }
+    //IEnumerator HandAttackCoroutine()
+    //{
+    //    yield return new WaitForSeconds(0.3f);
+    //    animator.SetBool("isAttack", true);
+    //    yield return new WaitForSeconds(0.3f);
+    //    animator.SetBool("isAttack", false);
+    //}
 }

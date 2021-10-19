@@ -1053,7 +1053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -928.3281, y: 353}
+  m_AnchoredPosition: {x: -940, y: 373}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &822569503
@@ -1523,8 +1523,8 @@ MonoBehaviour:
   FarWeaponRange: {fileID: 0}
   quitattacktime: 0.1
   hurttime: 0.1
-  HP: 5
-  maxHP: 5
+  HP: 100
+  maxHP: 100
   EP: 180
   maxEP: 180
   shield: 5
@@ -1742,7 +1742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1845537913
 MonoBehaviour:
   m_ObjectHideFlags: 0

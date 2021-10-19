@@ -17,6 +17,7 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update   
     //GameObject Ground;    
     Collider2D collider;
+    [SerializeField]
     MapState mapState;
     List<GameObject> enmies;
     void Start()
@@ -61,29 +62,34 @@ public class MapController : MonoBehaviour
         {
             if (Contact[i].CompareTag("Player"))
             {
-                mapState = MapState.PlayerEntry;
-                
+                mapState = MapState.PlayerEntry;               
             }
         }
     }
     void PlayerEntry()
     {
-        int amout = Random.Range(5, 10);
-        for(int i=0;i<amout;i++)
+        if(MapSetter.Instance.mapNumber>0)
         {
-            GameObject enemy = EnemyPool.Instance.GetEnemyToMap();
-            enemy.SetActive(true);
-            enmies.Add(enemy);
+            int amout = Random.Range(5, 10);
+            for (int i = 0; i < amout; i++)
+            {
+                GameObject enemy = EnemyPool.Instance.GetEnemyToMap();
+                enemy.transform.position = transform.position + new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.1f, 2.1f), 0);
+                enemy.SetActive(true);
+                enmies.Add(enemy);
+            }     
+            for (int i = 4; i <= 7; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+            mapState = MapState.Exploring;
         }
-        for(int i=0;i<transform.childCount;i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(true);
+        else
+        {            
+            mapState = MapState.Explored;
+            SetFenceAndRoad();
+            MapSetter.Instance.mapNumber++;
         }
-        for(int i=4;i<=7;i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(true);
-        }
-        mapState = MapState.Exploring;
     }
     void Exploring()
     {
@@ -113,20 +119,40 @@ public class MapController : MonoBehaviour
             transform.GetChild(5).gameObject.SetActive(false);//LeftFence
             transform.GetChild(9).gameObject.SetActive(true);//LeftRoad
         }
+        else
+        {
+            transform.GetChild(5).gameObject.SetActive(true);//LeftFence
+            transform.GetChild(9).gameObject.SetActive(false);//LeftRoad
+        }
         if (x + 1 < amout - 1 && MapSetter.Instance.dfsmap[x + 1, y])
         {
             transform.GetChild(6).gameObject.SetActive(false);//RightFence
             transform.GetChild(10).gameObject.SetActive(true);//RightRoad
+        }
+        else
+        {
+            transform.GetChild(6).gameObject.SetActive(true);//RightFence
+            transform.GetChild(10).gameObject.SetActive(false);//RightRoad
         }
         if (y - 1 > 0 && MapSetter.Instance.dfsmap[x, y - 1])
         {
             transform.GetChild(7).gameObject.SetActive(false);//DownFence
             transform.GetChild(12).gameObject.SetActive(true);//DownRoad
         }
+        else
+        {
+            transform.GetChild(7).gameObject.SetActive(true);//DownFence
+            transform.GetChild(12).gameObject.SetActive(false);//DownRoad
+        }
         if (y + 1 < amout - 1 && MapSetter.Instance.dfsmap[x, y + 1])
         {
             transform.GetChild(4).gameObject.SetActive(false);//UpFence
             transform.GetChild(11).gameObject.SetActive(true);//UpRoad
+        }
+        else
+        {
+            transform.GetChild(4).gameObject.SetActive(true);//UpFence
+            transform.GetChild(11).gameObject.SetActive(false);//UpRoad
         }
     }
 }

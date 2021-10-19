@@ -8,9 +8,15 @@ public class Goblin : EnemyBase
     public Collider2D attackRange;
     //private bool attackto;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+        state = State.Move;
+        HP = maxHP;
+    }
     void Start()
     {       
         state = State.Move;
+        HP = maxHP;
         //attackto = false;
         StartCoroutine(MoveCoroutine());
     }
@@ -105,6 +111,7 @@ public class Goblin : EnemyBase
         }
         avoidTime = time;
     }
+#nullable enable
     IEnumerator AttackCoroutine()
     {
         while(state==State.Attack)
@@ -113,7 +120,7 @@ public class Goblin : EnemyBase
             Collider2D[] Contact = new Collider2D[10];
             ContactFilter2D ContactF2D = new ContactFilter2D();
             ContactF2D.NoFilter();
-            num = attackRange.OverlapCollider(ContactF2D, Contact);
+            num = attackRange.OverlapCollider(ContactF2D, Contact);           
             for(int i=0;i<num;i++)
             {
                 if(Contact[i].CompareTag("Player"))
@@ -130,5 +137,8 @@ public class Goblin : EnemyBase
         if (!collision.gameObject.CompareTag("Player"))
             movePosition *= -1;
     }
-    
+    public override void Dead()
+    {
+        base.Dead();
+    }
 }

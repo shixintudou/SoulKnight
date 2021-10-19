@@ -9,10 +9,16 @@ public class GoblinWitch : EnemyBase
     public int BulletNumber;
     GameObject[] Bullets;
     public float bulletSpeed;
+    private void OnEnable()
+    {
+        state = State.Move;
+        HP = maxHP;
+    }
     void Start()
     {
         Bullets = new GameObject[BulletNumber];
         state = State.Move;
+        HP = maxHP;
         StartCoroutine(MoveCoroutine());
     }
 
@@ -98,7 +104,10 @@ public class GoblinWitch : EnemyBase
 
 
     }
-
+    public override void Dead()
+    {
+        base.Dead();
+    }
     public override void ChangeToMove()
     {
 
