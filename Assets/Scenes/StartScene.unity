@@ -481,8 +481,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 821441213}
     m_Modifications:
+    - target: {fileID: 502931180447029673, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2025491217141360092, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3554566219819750070, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842780104199304910, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5025137457912995354, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
@@ -805,6 +817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartMap
       objectReference: {fileID: 0}
+    - target: {fileID: 7011379940845471140, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8326551806793465349, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
       propertyPath: m_TagString
       value: Wall
@@ -841,7 +857,9 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6460322071442284251, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
+    - {fileID: 6460322071442284248, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13732c31fa8a9b24cb252e5636b9ee74, type: 3}
 --- !u!4 &590524584 stripped
 Transform:

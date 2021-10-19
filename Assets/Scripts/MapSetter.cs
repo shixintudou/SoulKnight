@@ -30,7 +30,8 @@ public class MapSetter : MonoBehaviour
     public float mapDistance;
     public MapDirection mapDirection;
     public bool[,] dfsmap;
-    public float mapNumber;
+    public int mapNumber;
+    public static MapSetter Instance;
 
     void Awake()
     {
@@ -39,6 +40,7 @@ public class MapSetter : MonoBehaviour
     void Start()
     {
         //itemsToThisMap = new List<MapItem>();
+        Instance = this;
         mapNumber = 0;
         tagObejectsInMap = new Dictionary<string, List<GameObject>>();
         foreach (MapItem item in itemsToThisMap)
