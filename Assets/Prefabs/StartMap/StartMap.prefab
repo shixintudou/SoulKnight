@@ -106,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5025137457912995354}
   - component: {fileID: 2025491217141360092}
+  - component: {fileID: 7343425898938478016}
   m_Layer: 0
   m_Name: StartMap
   m_TagString: StartMap
@@ -162,6 +163,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 9.755965, y: 5.7016473}
   m_EdgeRadius: 0
+--- !u!114 &7343425898938478016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863120173684427636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad429109dd160b4baef07c15272b632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 0}
 --- !u!1 &7011379940845471140
 GameObject:
   m_ObjectHideFlags: 0

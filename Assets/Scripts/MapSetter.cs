@@ -47,7 +47,8 @@ public class MapSetter : MonoBehaviour
             item.shouldExpand = false;
             for (int i = 0; i < item.itemAmount; i++)
             {
-                GameObject obj = Instantiate(item.itemToMap);                
+                GameObject obj = Instantiate(item.itemToMap);
+                obj.SetActive(false);
                 //DontDestroyOnLoad(obj);
                 tagObejectsInMap[obj.tag].Add(obj);
             }
@@ -63,27 +64,86 @@ public class MapSetter : MonoBehaviour
         nowPosx = itemsToThisMap[0].itemAmount / 2;
         nowPosy = itemsToThisMap[0].itemAmount / 2;
         dfsmap[nowPosx,nowPosy] = true;
+        InitMapPosition();
+        SetMap();
         //MapMove();
         //print(mapNumber);
         //tagObejectsInMap["StartMap"][0].SetActive(true);
         //tagObejectsInMap["StartMap"][0].transform.position += mapDistance * Vector3.right;
         //tagObejectsInMap["StartMap"][0].transform.GetChild(0).gameObject.SetActive(false);
     }
-    public void Setmap()
+    public void InitMapPosition()
     {
-        while(mapNumber<itemsToThisMap[0].itemAmount)
+        int x = nowPosx;
+        int y = nowPosy;
+        int temp = 0;
+        int Amount = itemsToThisMap[0].itemAmount;
+        while(temp<Amount)
         {
             mapDirection = (MapDirection)Random.Range(0, 5);
             switch(mapDirection)
             {
                 case MapDirection.Up:
+                    if(y<Amount-1)
+                    {
+                        if(!dfsmap[x,y+1])
+                        {
+                            y++;
+                            dfsmap[x, y] = true;
+                            temp++;
+                        }
+                    }
                     break;
                 case MapDirection.Left:
+                    if(x>0)
+                    {
+                        if(!dfsmap[x-1,y])
+                        {
+                            x--;
+                            dfsmap[x, y] = true;
+                            temp++;
+                        }
+                    }
                     break;
                 case MapDirection.Down:
+                    if(y>0)
+                    {
+                        if(!dfsmap[x,y-1])
+                        {
+                            y--;
+                            dfsmap[x, y] = true;
+                            temp++;
+                        }
+                    }
                     break;
                 case MapDirection.Right:
+                    if (x < Amount-1)
+                    {
+                        if (!dfsmap[x+1, y ])
+                        {
+                            x++;
+                            dfsmap[x, y] = true;
+                            temp++;
+                        }
+                    }
                     break;
+            }
+        }
+    }
+    public void SetMap()
+    {
+        int temp = 0;
+        int amount = itemsToThisMap[0].itemAmount;
+        for (int i=0;i<amount;i++)
+        {
+            for(int j=0;j<amount;j++)
+            {
+                if(!(i==nowPosx&&j==nowPosy)&&dfsmap[i,j])
+                {
+                    tagObejectsInMap["StartMap"][temp].transform.position = transform.position + new Vector3((i - nowPosx) * mapDistance, (j - nowPosy) * mapDistance, 0);
+                    tagObejectsInMap["StartMap"][temp].SetActive(true);
+                    temp++;
+                }
             }
         }
     }
