@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public int maxWeaponAmount=2;
     public int nowWeaponIndex;
     public Animator animatorController;
+    public int sceneIndex;
     
     // Start is called before the first frame update
     void Start()
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
         animatorController = GetComponent<Animator>();
         animatorController.SetBool("isDead", false);
         coin = 0;
-        
+        sceneIndex = 0;
     }
 
     // Update is called once per frame

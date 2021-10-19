@@ -17,7 +17,8 @@ public class MapSetter : MonoBehaviour
     {
         Up, Left, Down, Right
     }
-
+    public int nowPosx;
+    public int nowPosy;
 
 
 
@@ -28,14 +29,14 @@ public class MapSetter : MonoBehaviour
 
     public float mapDistance;
     public MapDirection mapDirection;
-    private bool[,] dfsmap;
-    private float mapNumber;
+    public bool[,] dfsmap;
+    public float mapNumber;
 
     void Awake()
     {
         //DontDestroyOnLoad(gameObject);
     }
-    void OnEnable()
+    void Start()
     {
         //itemsToThisMap = new List<MapItem>();
         mapNumber = 0;
@@ -46,102 +47,129 @@ public class MapSetter : MonoBehaviour
             item.shouldExpand = false;
             for (int i = 0; i < item.itemAmount; i++)
             {
-                GameObject obj = Instantiate(item.itemToMap);
-                obj.SetActive(false);
+                GameObject obj = Instantiate(item.itemToMap);                
+                //DontDestroyOnLoad(obj);
                 tagObejectsInMap[obj.tag].Add(obj);
             }
         }
-        dfsmap = new bool[itemsToThisMap[0].itemAmount * 2, itemsToThisMap[0].itemAmount * 2];
-        MapMove();
-        print(mapNumber);
-        //tagObejectsInMap["StartMap"][0].SetActive(true);
-        //tagObejectsInMap["StartMap"][0].transform.position += mapDistance * Vector3.right;
-        //tagObejectsInMap["StartMap"][0].transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //print(tagObejectsInMap["StartMap"][0].transform.childCount);
-    }
-    public void SetItem(string tag)
-    {
-        switch (tag)
+        dfsmap = new bool[itemsToThisMap[0].itemAmount, itemsToThisMap[0].itemAmount];
+        for(int i=0;i<itemsToThisMap[0].itemAmount;i++)
         {
-            case "StartMap":
-
-                break;
-        }
-    }
-    public void MapMove()
-    {
-
-        //bool[,] dfsmap = new bool[itemsToThisMap[0].itemAmount, itemsToThisMap[0].itemAmount];
-        for (int i = 0; i < itemsToThisMap[0].itemAmount * 2; i++)
-        {
-            for (int j = 0; j < itemsToThisMap[0].itemAmount * 2; j++)
+            for(int j=0;j<itemsToThisMap[0].itemAmount;j++)
             {
                 dfsmap[i, j] = false;
             }
         }
-        int Startx = Random.Range(0, itemsToThisMap[0].itemAmount);
-        int Starty = Random.Range(0, itemsToThisMap[0].itemAmount);
-        dfsmap[Startx, Starty] = true;//确定初始地图的位置
-        if (mapNumber < itemsToThisMap[0].itemAmount)
+        nowPosx = itemsToThisMap[0].itemAmount / 2;
+        nowPosy = itemsToThisMap[0].itemAmount / 2;
+        dfsmap[nowPosx,nowPosy] = true;
+        //MapMove();
+        //print(mapNumber);
+        //tagObejectsInMap["StartMap"][0].SetActive(true);
+        //tagObejectsInMap["StartMap"][0].transform.position += mapDistance * Vector3.right;
+        //tagObejectsInMap["StartMap"][0].transform.GetChild(0).gameObject.SetActive(false);
+    }
+    public void Setmap()
+    {
+        while(mapNumber<itemsToThisMap[0].itemAmount)
         {
-            Dfs(Startx, Starty);
-        }
-
-        int count = 0;
-        for (int i = 0; i < itemsToThisMap[0].itemAmount * 2; i++)
-        {
-            for (int j = 0; j < itemsToThisMap[0].itemAmount * 2; j++)
+            mapDirection = (MapDirection)Random.Range(0, 5);
+            switch(mapDirection)
             {
-                if (dfsmap[i, j] && i != Startx && j != Starty)
-                {
-                    Vector3 vector = new Vector3(i - Startx, j - Starty, transform.position.z);
-                    vector *= mapDistance;
-                    tagObejectsInMap["StartMap"][count++].transform.position += vector;
-                    print(true);
-                    print(count);
-                }
-
+                case MapDirection.Up:
+                    break;
+                case MapDirection.Left:
+                    break;
+                case MapDirection.Down:
+                    break;
+                case MapDirection.Right:
+                    break;
             }
         }
     }
-    private void Dfs(int x, int y)
-    {
-        if (mapNumber >= itemsToThisMap[0].itemAmount)
-            return;
-        if (x >= itemsToThisMap[0].itemAmount * 2)
-            Dfs(x - 2, y);
-        if (y >= itemsToThisMap[0].itemAmount * 2)
-            Dfs(x, y - 2);
-        if (x < 0)
-            Dfs(x + 2, y);
-        if (y < 0)
-            Dfs(x, y + 2);
-        //int num = Random.Range(1, 5);
-        if (x >= itemsToThisMap[0].itemAmount * 2 || y >= itemsToThisMap[0].itemAmount * 2)
-            return;
-        if (x < 0 || y < 0)
-            return;
+    // Update is called once per frame
+    //void Update()
+    //{
+    //    //print(tagObejectsInMap["StartMap"][0].transform.childCount);
+    //}
+    //public void SetItem(string tag)
+    //{
+    //    switch (tag)
+    //    {
+    //        case "StartMap":
 
-        if (mapNumber >= itemsToThisMap[0].itemAmount)
-            return;
+    //            break;
+    //    }
+    //}
+    //public void MapMove()
+    //{
 
-        if (!dfsmap[x, y])
-        {
-            dfsmap[x, y] = true;
-            mapNumber++;
-        }
-        if (mapNumber >= itemsToThisMap[0].itemAmount)
-            return;
-        Dfs(x + 1, y);
-        Dfs(x, y + 1);
-        Dfs(x - 1, y);
-        Dfs(x, y - 1);
-        return;
+    //    //bool[,] dfsmap = new bool[itemsToThisMap[0].itemAmount, itemsToThisMap[0].itemAmount];
+    //    for (int i = 0; i < itemsToThisMap[0].itemAmount * 2; i++)
+    //    {
+    //        for (int j = 0; j < itemsToThisMap[0].itemAmount * 2; j++)
+    //        {
+    //            dfsmap[i, j] = false;
+    //        }
+    //    }
+    //    int Startx = Random.Range(0, itemsToThisMap[0].itemAmount);
+    //    int Starty = Random.Range(0, itemsToThisMap[0].itemAmount);
+    //    dfsmap[Startx, Starty] = true;//确定初始地图的位置
+    //    if (mapNumber < itemsToThisMap[0].itemAmount)
+    //    {
+    //        Dfs(Startx, Starty);
+    //    }
+
+    //    int count = 0;
+    //    for (int i = 0; i < itemsToThisMap[0].itemAmount * 2; i++)
+    //    {
+    //        for (int j = 0; j < itemsToThisMap[0].itemAmount * 2; j++)
+    //        {
+    //            if (dfsmap[i, j] && i != Startx && j != Starty)
+    //            {
+    //                Vector3 vector = new Vector3(i - Startx, j - Starty, transform.position.z);
+    //                vector *= mapDistance;
+    //                tagObejectsInMap["StartMap"][count++].transform.position += vector;
+    //                print(true);
+    //                print(count);
+    //            }
+
+    //        }
+    //    }
+    //}
+    //private void Dfs(int x, int y)
+    //{
+    //    if (mapNumber >= itemsToThisMap[0].itemAmount)
+    //        return;
+    //    if (x >= itemsToThisMap[0].itemAmount * 2)
+    //        Dfs(x - 2, y);
+    //    if (y >= itemsToThisMap[0].itemAmount * 2)
+    //        Dfs(x, y - 2);
+    //    if (x < 0)
+    //        Dfs(x + 2, y);
+    //    if (y < 0)
+    //        Dfs(x, y + 2);
+    //    //int num = Random.Range(1, 5);
+    //    if (x >= itemsToThisMap[0].itemAmount * 2 || y >= itemsToThisMap[0].itemAmount * 2)
+    //        return;
+    //    if (x < 0 || y < 0)
+    //        return;
+
+    //    if (mapNumber >= itemsToThisMap[0].itemAmount)
+    //        return;
+
+    //    if (!dfsmap[x, y])
+    //    {
+    //        dfsmap[x, y] = true;
+    //        mapNumber++;
+    //    }
+    //    if (mapNumber >= itemsToThisMap[0].itemAmount)
+    //        return;
+    //    Dfs(x + 1, y);
+    //    Dfs(x, y + 1);
+    //    Dfs(x - 1, y);
+    //    Dfs(x, y - 1);
+    //    return;
 
 
         
@@ -150,6 +178,6 @@ public class MapSetter : MonoBehaviour
 
 
 
-    }
+    //}
 }
 

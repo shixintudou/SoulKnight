@@ -16,8 +16,12 @@ public class GateInFinal : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < 0.34f) 
+            if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < 0.34f)
+            {
+                PlayerController.Instance.sceneIndex++;
                 SceneManager.LoadScene(6);
+            }
+               
         }
     }
 }

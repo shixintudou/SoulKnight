@@ -6,8 +6,10 @@ public class CameraMove : MonoBehaviour
 {
     // Start is called before the first frame update
     public float movespeed;
+    public static CameraMove Instance;
     void Start()
     {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
