@@ -1697,8 +1697,8 @@ MonoBehaviour:
   maxHP: 100
   EP: 180
   maxEP: 180
-  shield: 50
-  maxshield: 50
+  shield: 100
+  maxshield: 100
   coin: 0
   shieldcovertime: 5
   everysheildcovertime: 1

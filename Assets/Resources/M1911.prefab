@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3bc183023a1a84b96ba0a10e103b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 2
   attackspeed: 0
   EPcost: 0
   isOnPlayer: 0
