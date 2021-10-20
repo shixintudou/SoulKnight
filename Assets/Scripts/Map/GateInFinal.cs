@@ -14,7 +14,7 @@ public class GateInFinal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.F))
         {
             if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < 0.34f)
             {

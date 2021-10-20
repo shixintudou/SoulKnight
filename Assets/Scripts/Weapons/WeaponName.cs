@@ -1,25 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-public class QuitGame : MonoBehaviour
+public class WeaponName : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static WeaponName Instance;
+    public List<string> weapons;
+    public int amount;
     void Start()
     {
-        GetComponent<Button>().onClick.AddListener(Exit);
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-    public void Exit()
-    {
-        UnityEditor.EditorApplication.isPlaying = false;
-        Application.Quit();
     }
 }

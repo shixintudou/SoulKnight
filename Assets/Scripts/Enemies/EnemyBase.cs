@@ -19,7 +19,6 @@ public class EnemyBase : MonoBehaviour
     public Vector3 movePosition;
     public float avoidDistance;
     public float avoidTime;
-    
     // Start is called before the first frame update
     
     
@@ -74,5 +73,22 @@ public class EnemyBase : MonoBehaviour
     public virtual void ChangeToAfterAttack()
     {
         state = State.AfterAttack;
+    }
+    public void Attract(float attracttime, float attractspeed, Vector2 attracttarget)
+    {
+        StartCoroutine(AttractCoroutine(attracttime, attractspeed, attracttarget));
+    }
+
+    public IEnumerator AttractCoroutine(float attracttime, float attractspeed,Vector2 attracttarget)
+    {       
+        float time = attracttime;
+        while(time>0)
+        {
+            Vector2 vector = Vector2.Lerp(transform.position, attracttarget, attractspeed * Time.deltaTime);
+            Vector3 vector3 = new Vector3(vector.x, vector.y, transform.position.z);
+            transform.position = vector3;
+            time -= Time.deltaTime;
+            yield return null;
+        }
     }
 }

@@ -24,11 +24,20 @@ public class PlayerController : MonoBehaviour
         SkillOn,
         SkillCanUse,
         SkillNotPrepared,
+        SkillCovering,
+        SkillUsing
     }
+    public enum ShieldState
+    { 
+    Full,NotFull,BeginRecover,Recovering,
+    }
+
+
 
     public State state;
     public WeaponState weaponState;
     public SkillState skillState;
+    public ShieldState shieldState;
     public static PlayerController Instance;
     public float speed;
     public Collider2D HandRange;
@@ -61,6 +70,7 @@ public class PlayerController : MonoBehaviour
         state = State.Idle;
         weaponState = WeaponState.Far;
         skillState = SkillState.SkillCanUse;
+        shieldState = ShieldState.Full;
         Instance = this;
         HandRange = GameObject.FindGameObjectWithTag("HandRange").GetComponent<Collider2D>();
         CloseWeaponRange = GameObject.FindGameObjectWithTag("CloseWeaponRange").GetComponent<Collider2D>();
@@ -112,10 +122,10 @@ public class PlayerController : MonoBehaviour
             if (HP <= 0)
             {
                 ChangeToDead();
-            }
-            if (shield < maxshield && state != State.Hurt)
+            }           
+            if(shieldState==ShieldState.NotFull)
             {
-                StartCoroutine(ShieldBeginCoverCoroutine());
+                StartCoroutine("ShieldBeginCoverCoroutine");
             }
             if (skillState == SkillState.SkillOn)
                 StartCoroutine(SkillOnCoroutine());
@@ -128,10 +138,6 @@ public class PlayerController : MonoBehaviour
                 nowWeaponIndex %= weapons.Count;
                 weaponState = (WeaponState)(int)weapons[nowWeaponIndex].GetComponent<WeaponBase>().type;
                 weapons[nowWeaponIndex].SetActive(true);
-            }
-            if (Input.GetMouseButton(0))
-            {
-                StopCoroutine("QuitAttackCoroutine");
             }
         }
         //print(GetMousePosition());
@@ -174,51 +180,51 @@ public class PlayerController : MonoBehaviour
             Vector3Int vector3Int = new Vector3Int((int)Input.GetAxisRaw("Horizontal"), 1, 1);
             transform.localScale = vector3Int;
         }
-        int num;
-        Collider2D[] Contact = new Collider2D[10];
-        ContactFilter2D ContactF2D = new ContactFilter2D();
-        ContactF2D.NoFilter();
-#nullable enable
-        switch (weaponState)
-        {
-            case WeaponState.Hand:
-                num = HandRange.OverlapCollider(ContactF2D, Contact);
-                for (int i = 0; i < num; i++)
-                {
-                    EnemyBase? enemyBase = Contact[i].GetComponent<EnemyBase>();
+//        int num;
+//        Collider2D[] Contact = new Collider2D[10];
+//        ContactFilter2D ContactF2D = new ContactFilter2D();
+//        ContactF2D.NoFilter();
+//#nullable enable
+//        switch (weaponState)
+//        {
+//            case WeaponState.Hand:
+//                num = HandRange.OverlapCollider(ContactF2D, Contact);
+//                for (int i = 0; i < num; i++)
+//                {
+//                    EnemyBase? enemyBase = Contact[i].GetComponent<EnemyBase>();
                     
-                }
-                break;
-            case WeaponState.Close:
-                num = CloseWeaponRange.OverlapCollider(ContactF2D, Contact);
-                for (int i = 0; i < num; i++)
-                {
+//                }
+//                break;
+//            case WeaponState.Close:
+//                num = CloseWeaponRange.OverlapCollider(ContactF2D, Contact);
+//                for (int i = 0; i < num; i++)
+//                {
                    
-                }
-                break;
-#nullable disable
-            case WeaponState.Far:
-                //if(Input.GetMouseButtonDown(0))
-                //{
-                //    GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
-                //    bullet.transform.position = transform.position;
-                //    bullet.GetComponent<PlayerBullet>().MovePosition = (GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
-                //    bullet.SetActive(true);
-                //    StopCoroutine(Shootcoroutine());
-                //}
+//                }
+//                break;
+//#nullable disable
+//            case WeaponState.Far:
+//                //if(Input.GetMouseButtonDown(0))
+//                //{
+//                //    GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+//                //    bullet.transform.position = transform.position;
+//                //    bullet.GetComponent<PlayerBullet>().MovePosition = (GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+//                //    bullet.SetActive(true);
+//                //    StopCoroutine(Shootcoroutine());
+//                //}
                     
-                break;
-        }
+//                break;
+//        }
         
-        if (!Input.GetMouseButton(0))
-        {
-            StartCoroutine(QuitAttackCoroutine());
+        //if (!Input.GetMouseButton(0))
+        //{
+        //    StartCoroutine(QuitAttackCoroutine());
             
-        }
-        else
-        {
-            StopCoroutine("QuitAttacCoroutine");
-        }
+        //}
+        //else
+        //{
+        //    StopCoroutine("QuitAttacCoroutine");
+        //}
         //if (Input.GetMouseButtonUp(0))
         //    StartCoroutine(QuitAttackCoroutine());
 
@@ -226,8 +232,9 @@ public class PlayerController : MonoBehaviour
     public void Hurt()
     {
         StartCoroutine(QuitHurtCoroutine());
-        StopCoroutine(ShieldCoverCoroutine());
-        StopCoroutine(ShieldBeginCoverCoroutine());
+        StopCoroutine("ShieldCoverCoroutine");
+        StopCoroutine("ShieldBeginCoverCoroutine");
+        shieldState = ShieldState.NotFull;
     }
     public void Dead()
     {
@@ -280,11 +287,11 @@ public class PlayerController : MonoBehaviour
         return new Vector2(vector.x, vector.y);
     }
 
-    IEnumerator QuitAttackCoroutine()
-    {
-        yield return new WaitForSeconds(quitattacktime);        
-        ChangeToIdle();
-    }
+    //IEnumerator QuitAttackCoroutine()
+    //{
+    //    yield return new WaitForSeconds(quitattacktime);        
+    //    ChangeToIdle();
+    //}
     IEnumerator QuitHurtCoroutine()
     {
         yield return new WaitForSeconds(hurttime);
@@ -292,26 +299,36 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator ShieldBeginCoverCoroutine()
     {
+        shieldState = ShieldState.BeginRecover;
         yield return new WaitForSeconds(shieldcovertime);
-        StartCoroutine(ShieldCoverCoroutine());
+        StartCoroutine("ShieldCoverCoroutine");
     }
     IEnumerator ShieldCoverCoroutine()
-    {        
-       while(shield<maxshield)
+    {
+        shieldState = ShieldState.Recovering;
+        while(shield<maxshield)
         {
             shield++;
             yield return new WaitForSeconds(everysheildcovertime);
         }
+        shieldState = ShieldState.Full;
     }
     IEnumerator SkillCdCoroutine()
     {
+        skillState = SkillState.SkillCovering;
         yield return new WaitForSeconds(skillcd); 
         skillState = SkillState.SkillCanUse;
     }
     IEnumerator SkillOnCoroutine()
     {
+        skillState = SkillState.SkillUsing;
         yield return new WaitForSeconds(skilltime);
         skillState = SkillState.SkillNotPrepared;
+    }
+
+    public void SkillCd()
+    {
+        StartCoroutine(SkillCdCoroutine());
     }
     //IEnumerator Shootcoroutine()
     //{

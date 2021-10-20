@@ -32,6 +32,8 @@ public class MapSetter : MonoBehaviour
     public bool[,] dfsmap;
     public int mapNumber;
     public static MapSetter Instance;
+    public int treasureNumber;
+    public int specialNumber;
 
     void Awake()
     {
@@ -40,6 +42,12 @@ public class MapSetter : MonoBehaviour
     void Start()
     {
         //itemsToThisMap = new List<MapItem>();
+        treasureNumber = Random.Range(1, 7);
+        specialNumber = Random.Range(1, 7);
+        while(specialNumber==treasureNumber)
+        {
+            specialNumber = Random.Range(1, 7);
+        }
         Instance = this;
         mapNumber = 0;
         tagObejectsInMap = new Dictionary<string, List<GameObject>>();

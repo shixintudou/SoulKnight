@@ -20,12 +20,15 @@ public class MapController : MonoBehaviour
     [SerializeField]
     MapState mapState;
     List<GameObject> enmies;
+    int maxWave;
+    int nowWave;
     void Start()
     {
         collider = GetComponent<Collider2D>();
         mapState = MapState.NotExplored;
         enmies = new List<GameObject>();
-        
+        nowWave = 0;
+        maxWave = Random.Range(1, 3);
     }
 
     // Update is called once per frame
@@ -68,27 +71,59 @@ public class MapController : MonoBehaviour
     }
     void PlayerEntry()
     {
-        if(MapSetter.Instance.mapNumber>0)
+        if(MapSetter.Instance.mapNumber!=MapSetter.Instance.treasureNumber&&MapSetter.Instance.mapNumber!=MapSetter.Instance.specialNumber)
         {
-            int amout = Random.Range(5, 10);
-            for (int i = 0; i < amout; i++)
+            if (MapSetter.Instance.mapNumber > 0)
             {
-                GameObject enemy = EnemyPool.Instance.GetEnemyToMap();
-                enemy.transform.position = transform.position + new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.1f, 2.1f), 0);
-                enemy.SetActive(true);
-                enmies.Add(enemy);
-            }     
-            for (int i = 4; i <= 7; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(true);
+                int amout = Random.Range(5, 10);
+                for (int i = 0; i < amout; i++)
+                {
+                    GameObject enemy = EnemyPool.Instance.GetEnemyToMap();
+                    enemy.transform.position = transform.position + new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(-2.1f, 2.1f), 0);
+                    enemy.SetActive(true);
+                    enmies.Add(enemy);
+                }
+                for (int i = 4; i <= 7; i++)
+                {
+                    transform.GetChild(i).gameObject.SetActive(true);
+                }
+                mapState = MapState.Exploring;
+                nowWave++;
             }
-            mapState = MapState.Exploring;
+            else
+            {
+                mapState = MapState.Explored;
+                SetFenceAndRoad();
+                MapSetter.Instance.mapNumber++;
+            }
         }
-        else
-        {            
-            mapState = MapState.Explored;
+        else if(MapSetter.Instance.mapNumber==MapSetter.Instance.treasureNumber)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("WeaponTreasureChest"));
+            obj.transform.position = transform.position;
             SetFenceAndRoad();
             MapSetter.Instance.mapNumber++;
+            mapState = MapState.Explored;
+        }
+        else if(MapSetter.Instance.mapNumber==MapSetter.Instance.specialNumber)
+        {
+            int n = Random.Range(0, 2);
+            if(n==0)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("BigYellowCrystal"));
+                obj.transform.position = transform.position;
+                SetFenceAndRoad();
+                MapSetter.Instance.mapNumber++;
+                mapState = MapState.Explored;
+            }
+            else if(n==1)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("BigBlueCrystal"));
+                obj.transform.position = transform.position;
+                SetFenceAndRoad();
+                MapSetter.Instance.mapNumber++;
+                mapState = MapState.Explored;
+            }
         }
     }
     void Exploring()
@@ -98,14 +133,26 @@ public class MapController : MonoBehaviour
             if (enemy.activeInHierarchy)
                 return;
         }
-        mapState = MapState.Explored;
-        MapSetter.Instance.mapNumber++;
-        if(MapSetter.Instance.mapNumber>=MapSetter.Instance.itemsToThisMap[0].itemAmount)
+        if(nowWave==maxWave)
         {
-            GameObject gate = Instantiate(Resources.Load<GameObject>("Gate"));
-            gate.transform.position = transform.position;
+            mapState = MapState.Explored;
+            MapSetter.Instance.mapNumber++;
+            if (MapSetter.Instance.mapNumber >= MapSetter.Instance.itemsToThisMap[0].itemAmount)
+            {
+                GameObject gate = Instantiate(Resources.Load<GameObject>("Gate"));
+                gate.transform.position = transform.position;
+            }
+            else
+            {
+                GameObject tresure = Instantiate(Resources.Load<GameObject>("NormalTreasureChest"));
+                tresure.transform.position = transform.position + new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(-2.5f, 2.5f), 0);
+            }
+            SetFenceAndRoad();
         }
-        SetFenceAndRoad();
+        else if(nowWave<maxWave)
+        {
+            mapState = MapState.PlayerEntry;
+        }
     }
     void SetFenceAndRoad()
     {

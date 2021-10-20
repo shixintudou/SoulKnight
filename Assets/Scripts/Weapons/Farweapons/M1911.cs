@@ -18,6 +18,8 @@ public class M1911 : WeaponBase
     // Update is called once per frame
     void Update()
     {
+        if (transform.localScale.x < 1)
+            transform.localScale = new Vector3Int(1, 1, 1);
         isOnPlayer = false;
         foreach (GameObject obj in PlayerController.Instance.weapons)
         {
@@ -27,11 +29,41 @@ public class M1911 : WeaponBase
                 break;
             }
         }
-        if(isOnPlayer)
+        if(!isCloned)
+        {
+            if (isOnPlayer)
+            {
+                Vector2 vector = (PlayerController.Instance.GetMousePosition() - new Vector2(transform.position.x, transform.position.y)).normalized;
+                transform.right = new Vector3(vector.x, vector.y, 0) * PlayerController.Instance.transform.localScale.x;
+                if (HandAttack() == null)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+                        bullet.transform.position = transform.position;
+                        bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+                        bullet.SetActive(true);
+                        StartCoroutine(ShootCoroutine());
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                        StopAllCoroutines();
+                }
+                else if (HandAttack() != null)
+                {
+                    Hattack();
+                }
+            }
+            else
+            {
+                PickWeapon();
+            }
+
+        }
+        else
         {
             Vector2 vector = (PlayerController.Instance.GetMousePosition() - new Vector2(transform.position.x, transform.position.y)).normalized;
             transform.right = new Vector3(vector.x, vector.y, 0) * PlayerController.Instance.transform.localScale.x;
-            if (PlayerController.Instance.weaponState == PlayerController.WeaponState.Far && HandAttack() == null)
+            if (HandAttack() == null)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -49,32 +81,6 @@ public class M1911 : WeaponBase
                 Hattack();
             }
         }
-        else
-        {
-            if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < 0.34f && Input.GetKeyDown(KeyCode.R))
-            {
-                if (PlayerController.Instance.weapons.Count < PlayerController.Instance.maxWeaponAmount)
-                {
-
-                    PlayerController.Instance.weapons.Add(gameObject);
-                    PlayerController.Instance.weapons[PlayerController.Instance.nowWeaponIndex].SetActive(false);
-                    PlayerController.Instance.nowWeaponIndex++;
-                    PlayerController.Instance.nowWeaponIndex %= PlayerController.Instance.maxWeaponAmount;
-                    gameObject.transform.parent = PlayerController.Instance.FarWeaponRange.transform;
-                }
-                else
-                {
-                    GameObject obj = PlayerController.Instance.weapons[PlayerController.Instance.nowWeaponIndex];
-                    PlayerController.Instance.weapons.Remove(obj);
-                    GameObject game = Instantiate(obj);
-                    game.transform.position = obj.transform.position;
-                    Destroy(obj);
-                    PlayerController.Instance.weapons.Add(gameObject);
-                    gameObject.transform.parent = PlayerController.Instance.FarWeaponRange.transform;
-                }
-            }
-        }
-        
 
     }
 
