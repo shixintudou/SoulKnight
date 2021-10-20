@@ -69,7 +69,10 @@ public class PlayerController : MonoBehaviour
         EP = maxEP;
         shield = maxshield;
         weapons = new List<GameObject>(maxWeaponAmount);
-        weapons.Add(Resources.Load<GameObject>("M1911"));
+        GameObject game = Instantiate(Resources.Load<GameObject>("M1911"));
+        game.transform.position = FarWeaponRange.transform.position;
+        game.transform.parent = FarWeaponRange.transform;
+        weapons.Add(game);
         nowWeaponIndex = 0;
         animatorController = GetComponent<Animator>();
         animatorController.SetBool("isDead", false);
@@ -118,7 +121,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(SkillOnCoroutine());
             if (skillState == SkillState.SkillNotPrepared)
                 StartCoroutine(SkillCdCoroutine());
-            if (Input.GetKeyDown(KeyCode.R) && weapons.Count > 1)
+            if (Input.GetKeyDown(KeyCode.Q) && weapons.Count > 1)
             {
                 weapons[nowWeaponIndex].SetActive(false);
                 nowWeaponIndex++;

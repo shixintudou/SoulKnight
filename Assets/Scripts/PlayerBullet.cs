@@ -12,7 +12,7 @@ public class PlayerBullet : MonoBehaviour
     {
         StartCoroutine(SetFalseCoroutine());
         Vector2 vector = new Vector2(transform.position.x, transform.position.y);
-        MovePosition = (PlayerController.Instance.GetMousePosition() - vector).normalized;
+        MovePosition = (PlayerController.Instance.GetMousePosition() - vector).normalized;       
     }
     // Update is called once per frame
     void Update()
@@ -47,6 +47,7 @@ public class PlayerBullet : MonoBehaviour
         yield return new WaitForSeconds(10f);
         gameObject.SetActive(false);
     }
+    
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
     //    collision.gameObject.GetComponent<EnemyBase>()?.Hurt(damage);

@@ -10,6 +10,7 @@ public class WeaponBase : MonoBehaviour
     public float attackspeed;
     public int EPcost;
     public static float HandRange = 0.2f;
+    public bool isOnPlayer;
     public enum Type
     {
         

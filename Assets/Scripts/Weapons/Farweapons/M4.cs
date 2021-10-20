@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class M1911 : WeaponBase
+public class M4 : WeaponBase
 {
-    // Start is called before the first frame update
     Animator animator;
     void Start()
     {
         type = Type.Far;
-        attackspeed = 0.8f;
+        attackspeed = 0.2f;
         animator = GameObject.FindGameObjectWithTag("HandRange").GetComponent<Animator>();
         animator.speed = 4;
+        EPcost = 2;
         transform.localScale = new Vector3(1, 1, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         isOnPlayer = false;
         foreach (GameObject obj in PlayerController.Instance.weapons)
         {
@@ -27,18 +28,19 @@ public class M1911 : WeaponBase
                 break;
             }
         }
-        if(isOnPlayer)
+        if (isOnPlayer)
         {
             Vector2 vector = (PlayerController.Instance.GetMousePosition() - new Vector2(transform.position.x, transform.position.y)).normalized;
             transform.right = new Vector3(vector.x, vector.y, 0) * PlayerController.Instance.transform.localScale.x;
-            if (PlayerController.Instance.weaponState == PlayerController.WeaponState.Far && HandAttack() == null)
+            if (PlayerController.Instance.weaponState == PlayerController.WeaponState.Far && HandAttack() == null && PlayerController.Instance.EP >= EPcost)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+                    GameObject bullet = BubblePool.Instance.GetBubble("bullet_M4(Clone)");
                     bullet.transform.position = transform.position;
-                    bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+                    bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;                  
                     bullet.SetActive(true);
+                    PlayerController.Instance.EP -= EPcost;
                     StartCoroutine(ShootCoroutine());
                 }
                 if (Input.GetMouseButtonUp(0))
@@ -55,7 +57,6 @@ public class M1911 : WeaponBase
             {
                 if (PlayerController.Instance.weapons.Count < PlayerController.Instance.maxWeaponAmount)
                 {
-
                     PlayerController.Instance.weapons.Add(gameObject);
                     PlayerController.Instance.weapons[PlayerController.Instance.nowWeaponIndex].SetActive(false);
                     PlayerController.Instance.nowWeaponIndex++;
@@ -74,7 +75,8 @@ public class M1911 : WeaponBase
                 }
             }
         }
-        
+
+
 
     }
 
@@ -105,17 +107,11 @@ public class M1911 : WeaponBase
         while (Input.GetMouseButton(0))
         {
             yield return new WaitForSeconds(attackspeed);
-            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M1911(Clone)");
+            GameObject bullet = BubblePool.Instance.GetBubble("bullet_M4(Clone)");
             bullet.transform.position = transform.position;
             bullet.GetComponent<PlayerBullet>().MovePosition = (PlayerController.Instance.GetMousePosition() - new Vector2(bullet.transform.position.x, bullet.transform.position.y)).normalized;
+            PlayerController.Instance.EP -= EPcost;
             bullet.SetActive(true);
         }
     }
-    //IEnumerator HandAttackCoroutine()
-    //{
-    //    yield return new WaitForSeconds(0.3f);
-    //    animator.SetBool("isAttack", true);
-    //    yield return new WaitForSeconds(0.3f);
-    //    animator.SetBool("isAttack", false);
-    //}
 }

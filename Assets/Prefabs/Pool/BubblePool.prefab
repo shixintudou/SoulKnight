@@ -47,4 +47,5 @@ MonoBehaviour:
   BubbleTypeToPool:
   - {fileID: 833491881119068225, guid: e204161a105fe324da97eb33a6ffadc7, type: 3}
   - {fileID: 1158819528875063806, guid: 742e9b4d5b1cd8040af41d73d82f4e2f, type: 3}
+  - {fileID: 7765694203594775862, guid: 470b655e5752ba74eaea80d94e54544b, type: 3}
   shouldexpand: 1

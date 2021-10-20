@@ -18,7 +18,10 @@ public class GateInFinal : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < 0.34f)
             {
-                PlayerController.Instance.sceneIndex++;
+                if (PlayerController.Instance.sceneIndex < 5)
+                    PlayerController.Instance.sceneIndex++;
+                else
+                    PlayerController.Instance.sceneIndex = 0;
                 SceneManager.LoadScene(6);
             }
                
