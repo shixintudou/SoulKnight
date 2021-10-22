@@ -156,8 +156,8 @@ public class MapController : MonoBehaviour
     }
     void SetFenceAndRoad()
     {
-        int tx = System.Convert.ToInt32(transform.position.x / MapSetter.Instance.mapDistance);
-        int ty = System.Convert.ToInt32(transform.position.y / MapSetter.Instance.mapDistance);
+        int tx = Mathf.RoundToInt(transform.position.x / MapSetter.Instance.mapDistance);
+        int ty = Mathf.RoundToInt(transform.position.y / MapSetter.Instance.mapDistance);
         int x = MapSetter.Instance.nowPosx + tx;
         int y = MapSetter.Instance.nowPosy + ty;
         int amout = MapSetter.Instance.itemsToThisMap[0].itemAmount;

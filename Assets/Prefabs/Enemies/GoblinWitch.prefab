@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 8
-  maxHP: 8
+  maxHP: 1
   attackNumber: 3
   state: 0
   attackCd: 2
